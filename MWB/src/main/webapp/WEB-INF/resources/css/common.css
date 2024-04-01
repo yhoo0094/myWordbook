@@ -34,6 +34,10 @@
     justify-content: center; /* 수평 축을 기준으로 중앙 정렬합니다 */
 }
 
+.hidden-item{
+	visibility: hidden;
+}
+
 .vh100{height: 100vh;}
 .vw100{width: 100vw;}
 

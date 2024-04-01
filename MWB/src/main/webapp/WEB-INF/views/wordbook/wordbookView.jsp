@@ -13,13 +13,9 @@
 <div class="page-header align-items-center">
 	<img src="${pageContext.request.contextPath}\resources\images\etc\btn_menu.png" id="menuBtn" class="menuBtn"/>
 	<div class="title-div">
-		<select class="title-select form-select">
-			<option>단어장1</option>
-			<option>단어장2</option>
-			<option>단어장3</option>
-		</select>
+		<select id="wordbookList" class="title-select form-select"></select>
 	</div>
-	<img src="${pageContext.request.contextPath}\resources\images\etc\edit.png" id="" class="menuBtn"/>
+	<img src="${pageContext.request.contextPath}\resources\images\etc\edit.png" id="editBtn" class="editBtn"/>
 </div>
 <div class="page-option">
 	<div class="option-div">
@@ -38,16 +34,16 @@
 <div class="page-body">
 	<div class="body-div align-items-center">
 		<img src="${pageContext.request.contextPath}\resources\images\etc\prev-button.png" id="" class="prev-button"/>
-		<span class="word-span">단어</span>
+		<span class="word-span">word</span>
 		<img src="${pageContext.request.contextPath}\resources\images\etc\next-button.png" id="" class="next-button"/>
 	</div>
-	<div class="body-div align-items-center">
-		뜻
-	</div>
+	<div class="body-div align-items-center">mean</div>
 </div>
 <div class="button-div tr">
 	<button class="btn btn-dark optionBtn" type="button">목록</button>
-	<button class="btn btn-dark optionBtn" type="button">등록</button>
+	<button class="btn btn-dark optionBtn" type="button" onClick="wordEditModalOpen('C')">등록</button>
 	<button class="btn btn-dark optionBtn" type="button">수정</button>
 	<button class="btn btn-danger optionBtn" type="button">삭제</button>
 </div>
+
+<%@ include file="/WEB-INF/views/wordbook/wordEditModal.jsp" %><!-- 단어 관리 모달  -->
