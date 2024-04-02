@@ -34,6 +34,22 @@ public class WordbookService extends BaseService {
 	}	
 	
 	/**
+	* @메소드명: selectWordList
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 2. 오전 7:44:47
+	* @설명: 단어 목록 조회
+	*/	
+	public Map<String, Object> selectWordList(StringBuilder logStr, Map<String, Object> inData) throws Exception {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		List<Map<String, Object>> list = sqlSession.selectList("mapper.wordbook.WordbookMapper.selectWordList", inData);
+		result.put("data", list);
+		result.put(Constant.OUT_DATA, list);
+		result.put(Constant.RESULT, Constant.RESULT_SUCCESS);
+		return result;
+	}		
+	
+	/**
 	* @메소드명: insertWordbook
 	* @작성자: KimSangMin
 	* @생성일: 2024. 4. 1. 오후 4:43:42
@@ -100,6 +116,50 @@ public class WordbookService extends BaseService {
 	}	
 	
 	/**
+	* @메소드명: updateWord
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 2. 오전 10:35:10
+	* @설명:
+	*/	
+	public Map<String, Object> updateWord(StringBuilder logStr, Map<String, Object> inData) throws Exception
+	{
+		Map<String, Object> result = new HashMap<String, Object>();
+		int cnt = 0;
+		
+		cnt = sqlSession.update("mapper.wordbook.WordbookMapper.updateWord", inData);
+		if(cnt == 0) {
+			result.put(Constant.RESULT, Constant.RESULT_FAILURE);
+			result.put(Constant.OUT_RESULT_MSG, "데이터 수정에 실패했습니다.");
+		}
+		
+		result.put(Constant.RESULT, Constant.RESULT_SUCCESS);
+		result.put(Constant.OUT_DATA, cnt);
+		return result;
+	}		
+	
+	/**
+	* @메소드명: updateBookmark
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 2. 오후 5:05:57
+	* @설명: 중요단어여부 변경
+	*/	
+	public Map<String, Object> updateBookmark(StringBuilder logStr, Map<String, Object> inData) throws Exception
+	{
+		Map<String, Object> result = new HashMap<String, Object>();
+		int cnt = 0;
+		
+		cnt = sqlSession.update("mapper.wordbook.WordbookMapper.updateBookmark", inData);
+		if(cnt == 0) {
+			result.put(Constant.RESULT, Constant.RESULT_FAILURE);
+			result.put(Constant.OUT_RESULT_MSG, "데이터 수정에 실패했습니다.");
+		}
+		
+		result.put(Constant.RESULT, Constant.RESULT_SUCCESS);
+		result.put(Constant.OUT_DATA, cnt);
+		return result;
+	}			
+	
+	/**
 	* @메소드명: deleteWordbook
 	* @작성자: KimSangMin
 	* @생성일: 2024. 4. 1. 오후 7:00:24
@@ -111,6 +171,28 @@ public class WordbookService extends BaseService {
 		int cnt = 0;
 		
 		cnt = sqlSession.update("mapper.wordbook.WordbookMapper.deleteWordbook", inData);
+		if(cnt == 0) {
+			result.put(Constant.RESULT, Constant.RESULT_FAILURE);
+			result.put(Constant.OUT_RESULT_MSG, "데이터 삭제에 실패했습니다.");
+		}
+		
+		result.put(Constant.RESULT, Constant.RESULT_SUCCESS);
+		result.put(Constant.OUT_DATA, cnt);
+		return result;
+	}
+	
+	/**
+	* @메소드명: deleteWord
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 2. 오전 10:17:24
+	* @설명: 단어 삭제
+	*/	
+	public Map<String, Object> deleteWord(StringBuilder logStr, Map<String, Object> inData) throws Exception
+	{
+		Map<String, Object> result = new HashMap<String, Object>();
+		int cnt = 0;
+		
+		cnt = sqlSession.delete("mapper.wordbook.WordbookMapper.deleteWord", inData);
 		if(cnt == 0) {
 			result.put(Constant.RESULT, Constant.RESULT_FAILURE);
 			result.put(Constant.OUT_RESULT_MSG, "데이터 삭제에 실패했습니다.");

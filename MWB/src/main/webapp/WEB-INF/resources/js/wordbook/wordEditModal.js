@@ -10,11 +10,13 @@ function wordEditModalOpen(mode){
 	modalReset();	//모달 내용 초기화
 	
 	//C:등록, U:수정
+	$('#modalWordbookSeq').val($('#wordbookList').val());
 	if(mode == 'C'){
 			
 	} else if(mode == 'U') {
-		$('#modalWordbookNm').val(wordbookNm);
-		$('#wordbookSeq').val(wordbookSeq);
+		$('#modalWord').val(wordList[wordIdx].word);
+		$('#modalMean').val(wordList[wordIdx].mean);
+		$('#modalWordId').val(wordList[wordIdx].wordId);
 	}
 	
 	$com.loadingEnd();
@@ -47,12 +49,13 @@ function saveWord(){
 	formData.forEach(function(value, key) {
 	    formObject[key] = value;
 	});
-	formObject.wordbookSeq = $('#wordbookList').val();
+//	formObject.wordbookSeq = wordList[wordIdx].wordbookSeq;
+//	formObject.wordId = wordList[wordIdx].wordId;
 	
 	$com.loadingStart();	
 	
 	let url;
-	if($util.isEmpty($('#modalWord').val())){
+	if($util.isEmpty($('#modalWordId').val())){
 		url = '/wordbook/insertWord.do'
 	} else {
 		url = '/wordbook/updateWord.do'

@@ -13,7 +13,8 @@
 
 <div id="wordEditModal" class="modal">
 	<form id="wordEditForm" method="post" style="margin: 10px 0px;">
-		<input type="hidden" id="modalWord" name="word">
+		<input type="hidden" id="modalWordbookSeq" name="wordbookSeq">
+		<input type="hidden" id="modalWordId" name="wordId">
 		<table class="papang-table">
 			<colgroup>
 				<col style="width: 4rem">

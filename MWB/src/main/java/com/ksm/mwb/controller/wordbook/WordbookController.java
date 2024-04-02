@@ -37,6 +37,20 @@ public class WordbookController extends BaseController {
 	}		
 	
 	/**
+	* @메소드명: selectWordList
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 2. 오전 7:44:47
+	* @설명: 단어 목록 조회
+	*/
+	@RequestMapping("/selectWordList.do")
+	public void selectWordList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> inData = RequestUtil.getParameterMap(request);
+		Map<String, Object> outData = wordbookService.selectWordList((StringBuilder)request.getAttribute("IN_LOG_STR"), inData);
+		
+		ResponseUtil.setResAuto(response, inData, outData);
+	}		
+	
+	/**
 	* @메소드명: insertWordbook
 	* @작성자: KimSangMin
 	* @생성일: 2024. 4. 1. 오후 4:43:42
@@ -71,6 +85,42 @@ public class WordbookController extends BaseController {
 		response.getWriter().print(json);	//결과 json형태로 담아서 보내기
 		response.setContentType("application/x-json; charset=UTF-8");
 	}	
+	
+	/**
+	* @메소드명: updateWord
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 2. 오전 10:35:10
+	* @설명:
+	*/
+	@RequestMapping("/updateWord.do")
+	public void updateWord(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> inData = RequestUtil.getParameterMap(request);
+		inData.put("loginInfo", RequestUtil.getLoginInfo(request));
+		Map<String, Object> outData = wordbookService.updateWord((StringBuilder)request.getAttribute("IN_LOG_STR"), inData);
+
+		Gson gson = new Gson();
+		String json = gson.toJson(outData);
+		response.getWriter().print(json);	//결과 json형태로 담아서 보내기
+		response.setContentType("application/x-json; charset=UTF-8");
+	}	
+	
+	/**
+	* @메소드명: updateBookmark
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 2. 오후 5:05:57
+	* @설명: 중요단어여부 변경
+	*/
+	@RequestMapping("/updateBookmark.do")
+	public void updateBookmark(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> inData = RequestUtil.getParameterMap(request);
+		inData.put("loginInfo", RequestUtil.getLoginInfo(request));
+		Map<String, Object> outData = wordbookService.updateBookmark((StringBuilder)request.getAttribute("IN_LOG_STR"), inData);
+
+		Gson gson = new Gson();
+		String json = gson.toJson(outData);
+		response.getWriter().print(json);	//결과 json형태로 담아서 보내기
+		response.setContentType("application/x-json; charset=UTF-8");
+	}		
 	
 	/**
 	* @메소드명: insertWord
@@ -108,4 +158,22 @@ public class WordbookController extends BaseController {
 		response.setContentType("application/x-json; charset=UTF-8");
 	}		
 	
+	
+	/**
+	* @메소드명: deleteWord
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 2. 오전 10:17:24
+	* @설명: 단어 삭제
+	*/
+	@RequestMapping("/deleteWord.do")
+	public void deleteWord(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> inData = RequestUtil.getParameterMap(request);
+		inData.put("loginInfo", RequestUtil.getLoginInfo(request));
+		Map<String, Object> outData = wordbookService.deleteWord((StringBuilder)request.getAttribute("IN_LOG_STR"), inData);
+
+		Gson gson = new Gson();
+		String json = gson.toJson(outData);
+		response.getWriter().print(json);	//결과 json형태로 담아서 보내기
+		response.setContentType("application/x-json; charset=UTF-8");
+	}		
 }

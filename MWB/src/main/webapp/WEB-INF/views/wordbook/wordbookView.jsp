@@ -13,7 +13,7 @@
 <div class="page-header align-items-center">
 	<img src="${pageContext.request.contextPath}\resources\images\etc\btn_menu.png" id="menuBtn" class="menuBtn"/>
 	<div class="title-div">
-		<select id="wordbookList" class="title-select form-select"></select>
+		<select id="wordbookList" name="wordbookSeq" class="title-select form-select" onChange="selectWordList()"></select>
 	</div>
 	<img src="${pageContext.request.contextPath}\resources\images\etc\edit.png" id="editBtn" class="editBtn"/>
 </div>
@@ -29,21 +29,25 @@
 			<input type="checkbox" id="reverseToggle" name="reverseToggle" class="form-check-input" onChange="javascript:doSearch()">
 		</div>
 	</div>
-	<img src="${pageContext.request.contextPath}\resources\images\etc\bookmark_true.png" id="bookmarkBtn" class="bookmarkBtn"/>
+	<img src="${pageContext.request.contextPath}\resources\images\etc\bookmark_true.png" id="bookmarkBtn" class="bookmarkBtn" onClick="updateBookmark()"/>
 </div>
 <div class="page-body">
-	<div class="body-div align-items-center">
-		<img src="${pageContext.request.contextPath}\resources\images\etc\prev-button.png" id="" class="prev-button"/>
-		<span class="word-span">word</span>
-		<img src="${pageContext.request.contextPath}\resources\images\etc\next-button.png" id="" class="next-button"/>
+	<div id="wordDiv" class="body-div align-items-center">
+		<img src="${pageContext.request.contextPath}\resources\images\etc\prev-button.png" id="prevBtn" class="prev-button"/>
+		<span id="wordSpan" class="word-span"></span>
+		<img src="${pageContext.request.contextPath}\resources\images\etc\next-button.png" id="nextBtn" class="next-button"/>
 	</div>
-	<div class="body-div align-items-center">mean</div>
+	<div id="meanDiv" class="body-div align-items-center">
+		<span id="meanSpan" class="mean-span"></span>
+		<img src="${pageContext.request.contextPath}\resources\images\etc\question-mark.png" id="meanBlockImg" class=""/>
+	</div>
+	<div id="wordListDiv" class="page-body tl list-div"></div>
 </div>
 <div class="button-div tr">
-	<button class="btn btn-dark optionBtn" type="button">목록</button>
+	<button class="btn btn-dark optionBtn" type="button" onClick="showWordList()">목록</button>
 	<button class="btn btn-dark optionBtn" type="button" onClick="wordEditModalOpen('C')">등록</button>
-	<button class="btn btn-dark optionBtn" type="button">수정</button>
-	<button class="btn btn-danger optionBtn" type="button">삭제</button>
+	<button class="btn btn-dark optionBtn" type="button" onClick="wordEditModalOpen('U')">수정</button>
+	<button class="btn btn-danger optionBtn" type="button" onClick="deleteWord()">삭제</button>
 </div>
 
 <%@ include file="/WEB-INF/views/wordbook/wordEditModal.jsp" %><!-- 단어 관리 모달  -->
