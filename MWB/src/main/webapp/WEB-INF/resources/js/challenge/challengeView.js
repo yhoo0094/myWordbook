@@ -9,10 +9,14 @@ let wordList;		//단어 목록
 let wordIdx = 0;	//현재 단어 인덱스
 	
 $(()=>{
-	setBtnEvent();			//사이드 메뉴 토글
-	editBtn();				//단어장 수정 화면 이동
-	selectWordbookList();	//단어장 목록 조회
+	setBtnEvent();			//버튼 이벤트
+	selectChalWord();		//챌린지 단어 조회
 })	
+
+//설정창 토글
+function settingBtn(){
+
+}
 
 //단어장 목록 조회
 function selectWordbookList(){
@@ -44,24 +48,26 @@ function selectWordbookList(){
 }
 
 //단어 목록 조회
-function selectWordList(){
+function selectChalWord(){
 	$com.loadingStart();
 	
-	let schBookmarkYn;
-	if($('#schBookmarkYn').prop('checked')){
-		schBookmarkYn = 'Y';
-	}	
+//	let schBookmarkYn;
+//	if($('#schBookmarkYn').prop('checked')){
+//		schBookmarkYn = 'Y';
+//	}	
 	
     $.ajax({
-        url: '/wordbook/selectWordList.do',
+        url: '/challenge/selectChalWord.do',
         type: 'POST',
-        data: { wordbookSeq: $('#wordbookList').val()
-        	  , schBookmarkYn: schBookmarkYn},
+//        data: { wordbookSeq: $('#wordbookList').val()
+//        	  , schBookmarkYn: schBookmarkYn},
+        data: {},        	  
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
         dataType: 'json',
         success: function (res, textStatus, jqXHR) {
 			let result = '';
 	        if (res.RESULT == Constant.RESULT_SUCCESS){
+				debugger;
 				wordList = res.OUT_DATA
 				if(wordList.length > 0){
 					//단어 조회
@@ -127,38 +133,6 @@ function setClickAction(){
 
 //버튼 이벤트
 function setBtnEvent(){
-	//이전 버튼
-	$('#prevBtn').on({
-		click: function(e) {
-			$('#meanSpan').hide();
-			$('#meanBlockImg').css('width', '50%');
-			
-			if(wordIdx == 0){
-				wordIdx = wordList.length - 1; 
-			} else {
-				wordIdx--;
-			}
-			setWord();
-			setBookmarkBtn();	//중요 단어 여부 버튼 활성화/비활성화
-		},
-	});		
-	
-	//다음 버튼
-	$('#nextBtn').on({
-		click: function(e) {
-			$('#meanSpan').hide();
-			$('#meanBlockImg').css('width', '50%');
-			
-			if(wordIdx == wordList.length - 1){
-				wordIdx = 0; 
-			} else {
-				wordIdx++;
-			}
-			setWord();
-			setBookmarkBtn();	//중요 단어 여부 버튼 활성화/비활성화
-		},
-	});		
-		
 	//뜻 영역 누르면 가림막 토글
 	$('#meanDiv').on({
 		click: function(e) {
@@ -171,15 +145,18 @@ function setBtnEvent(){
 			}
 		},
 	});		
-}
-
-//단어장 수정 화면 이동
-function editBtn(){
-	$('#editBtn').on({
+	
+	//설정창 토글
+	$('#settingBtn').on({
 		click: function(e) {
-			window.location.href = "/wordbook/wordbookList";		
+			let settingMenu = $('#settingMenu');
+			if (settingMenu[0].style.width != '0px') {
+				settingMenu[0].style.width = '0px'; // 메뉴 닫기
+			} else {
+				settingMenu[0].style.width = '100%'; // 메뉴 열기
+			}			
 		},
-	});	
+	});		
 }
 
 //단어 삭제

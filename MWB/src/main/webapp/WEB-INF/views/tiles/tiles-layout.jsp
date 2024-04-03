@@ -73,15 +73,14 @@
   </head>
 
   <body>
-	<div id="sideMenu" class="side-menu">
-		<!-- 메뉴 내용 -->
-		<div><a href="<%=request.getContextPath()%>/wordbook/wordbookView" class="remove-a">단어장</a></div>
-		<div><a href="#" class="remove-a">챌린지</a></div>
-		<div><a href="#" class="remove-a">사전</a></div>
-		<div><a href="#" class="remove-a">개발자</a></div>		
-	</div>
-
 	<div class="wrap">
+		<div id="sideMenu" class="side-menu tl">
+			<!-- 메뉴 내용 -->
+			<div><a href="<%=request.getContextPath()%>/wordbook/wordbookView" class="remove-a">단어장</a></div>
+			<div><a href="<%=request.getContextPath()%>/challenge/challengeView" class="remove-a">챌린지</a></div>
+			<div><a href="#" class="remove-a">사전</a></div>
+			<div><a href="#" class="remove-a">개발자</a></div>		
+		</div>	
 		<div class="content">
 			<tiles:insertAttribute name="body"/>
 		</div>

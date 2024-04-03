@@ -28,6 +28,7 @@ function menuBtn(){
 			if (sideMenu[0].style.width != '0px') {
 				sideMenu[0].style.width = '0px'; // 메뉴 닫기
 			} else {
+				$('.side-menu').css('width', '0px') //열린 메뉴가 있다면 닫기
 				sideMenu[0].style.width = '100%'; // 메뉴 열기
 			}			
 		},
@@ -40,8 +41,6 @@ function resizeWindow(){
 		// 화면의 너비와 높이를 가져옵니다.
 		const width = window.innerWidth;
 		const height = window.innerHeight;
-
-//		alert('width: ' + width + ' height: ' + height);
 
 		// 너비가 높이의 60% 이상인지 확인합니다.
 		if (width >= height * 0.6) {
@@ -67,6 +66,11 @@ function resizeWindow(){
 			$('body').css('font-size','15px');
 			$('html').css('font-size','15px');
 		}
+		
+		//사이드 메뉴 크기 조정
+		let sideMn = $('#sideMenu').css('height')
+		let pageHd = $('#page-header').css('height')
+		$('.side-menu').css('height', "calc(" + sideMn + " -  " + pageHd + ")")
 	})
 }
 

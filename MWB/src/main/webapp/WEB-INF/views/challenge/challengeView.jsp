@@ -10,17 +10,21 @@
 **/
  %>
  
-<div class="page-header align-items-center">
+<div id="page-header" class="page-header align-items-center">
 	<img src="${pageContext.request.contextPath}\resources\images\etc\btn_menu.png" id="menuBtn" class="menuBtn"/>
 	<div class="title-div">
-		<select id="wordbookList" name="wordbookSeq" class="title-select form-select" onChange="selectWordList()"></select>
+		<select id="wordbookList" name="wordbookSeq" class="title-select form-select" onChange="selectWordList()">
+			<option>chal1</option>
+			<option>chal2</option>
+			<option>chal3</option>
+		</select>
 	</div>
-	<img src="${pageContext.request.contextPath}\resources\images\etc\edit.png" id="editBtn" class="editBtn"/>
+	<img src="${pageContext.request.contextPath}\resources\images\etc\setting.png" id="settingBtn" class="editBtn" title="설정"/>
 </div>
 <div class="page-option">
 	<div class="option-div">
 		<div class="form-check form-switch">
-			<label for="schBookmarkYn" class="form-check-label"><b>중요 단어만</b></label>
+			<label for="schBookmarkYn" class="form-check-label"><b>맞춘 단어 제외</b></label>
 			<input type="checkbox" id="schBookmarkYn" name="schBookmarkYn" class="form-check-input" onChange="javascript:selectWordList()">
 		</div>
 		&nbsp;&nbsp;
@@ -29,7 +33,9 @@
 			<input type="checkbox" id="reverseYn" name="reverseYn" class="form-check-input" onChange="javascript:selectWordList()">
 		</div>
 	</div>
-	<img src="${pageContext.request.contextPath}\resources\images\etc\bookmark_false.png" id="bookmarkBtn" class="bookmarkBtn" onClick="updateBookmark()"/>
+	<div class="tr">
+		1/100
+	</div>
 </div>
 <div class="page-body">
 	<div id="wordDiv" class="body-div align-items-center">
@@ -43,11 +49,17 @@
 	</div>
 	<div id="wordListDiv" class="page-body tl list-div"></div>
 </div>
-<div class="button-div tr">
-	<button class="btn btn-dark optionBtn" type="button" onClick="showWordList()">목록</button>
-	<button class="btn btn-dark optionBtn" type="button" onClick="wordEditModalOpen('C')">등록</button>
-	<button class="btn btn-dark optionBtn" type="button" onClick="wordEditModalOpen('U')">수정</button>
-	<button class="btn btn-danger optionBtn" type="button" onClick="deleteWord()">삭제</button>
+<div class="chal-button-div tr">
+	<button class="btn btn-primary chalOptionBtn" type="button" onClick="">정답</button>
+	<button class="btn btn-danger chalOptionBtn" type="button" onClick="">오답</button>
 </div>
 
-<%@ include file="/WEB-INF/views/wordbook/wordEditModal.jsp" %><!-- 단어 관리 모달  -->
+<div id="settingMenu" class="side-menu tl">
+	<!-- 메뉴 내용 -->
+	<div onClick="chalEditModalOpen('C')">신규</div>
+	<div onClick="chalEditModalOpen('U')">수정</div>
+	<div onClick="deleteChal()">삭제</div>
+	<div onClick="selectChalList()">목록</div>		
+</div>	
+
+<%@ include file="/WEB-INF/views/challenge/challengeEditModal.jsp" %><!-- 단어 관리 모달  -->

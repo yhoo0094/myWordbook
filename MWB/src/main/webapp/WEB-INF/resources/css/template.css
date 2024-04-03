@@ -23,9 +23,10 @@ body, html {
     height: 100%; 
     margin: auto; /* 상위 요소 내에서 자동 마진을 통한 중앙 정렬 */
 	max-width: 60vh; 
-	max-height: 230vw; 
+	max-height: 240vw; 
 	overflow: auto;
 	white-space: nowrap;   
+	position: relative;
 }
 
 .close-modal{
@@ -107,6 +108,15 @@ a:hover {
 	font-weight: bold;
 	text-align: right;
 }
+
+.border-box{
+	border: 1px solid gray;
+}
+
+.tableInput{
+	margin: 12px; 
+	width: 100%;
+}
 /* 전체 공통 끝 */
 
 /* 스크롤바 시작*/
@@ -163,14 +173,14 @@ a:hover {
 /* 사이드 메뉴 시작 */
 .side-menu {
   width: 0px; /* 메뉴의 너비 */
-  position: fixed;
+  position: absolute;
   top: var(--page-header-height);
   left: 0; /* 왼쪽 바깥으로 숨겨진 상태로 시작 */
   height: 100%;
   background-color: #ffffff; /* 메뉴의 배경색 */
   overflow-x: hidden;
   transition: 0.5s; /* 부드러운 슬라이드 효과를 위한 전환 */
-  z-index: 100; /* 다른 요소 위에 오도록 z-index 설정 */
+  z-index: 1; /* 다른 요소 위에 오도록 z-index 설정 */
   font-size: 2rem;
   font-weight: bold;
 }
@@ -180,7 +190,13 @@ a:hover {
 	white-space: nowrap;
 }
 
-.side-menu .selected, .list-div .selected{
+.side-menu > div:hover{
+	background-color: #6d91d3;
+}
+
+.side-menu .selected, 
+.list-div .selected, 
+#modalWordbookList .selected{
 	background-color: #6d91d3;
 }
 
@@ -205,6 +221,7 @@ a:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
+    display: block;
 }
 
 .login-form .checkbox-group {
@@ -275,7 +292,8 @@ a:hover {
 }
 
 .button-div{
-	padding: 10px;
+	padding: 0.5rem;
+	background-color: #6c757d;
 }
 
 .word-span{
@@ -316,6 +334,28 @@ a:hover {
     white-space: nowrap;
 }
 /* wordbookList 끝 */
+
+/* challengeView 시작 */
+.chal-button-div{
+	padding: 10px;
+	display: flex;
+}
+
+.chalOptionBtn{
+	flex: 1;
+    font-size: 1.5rem;
+    margin: 2px;
+}
+/* challengeView 끝 */
+
+/* challengeEditModal 시작 */
+#modalWordbookList{
+	height: 10rem;
+    overflow: auto;
+    text-align: left;
+    padding: 10px;
+}
+/* challengeEditModal 끝 */
 
 /* /* 작은 화면 (모바일)을 위한 스타일 시작 */ */
 /* @media (min-width: 600px) { */

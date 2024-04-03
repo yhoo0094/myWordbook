@@ -32,6 +32,9 @@
 		  FROM TB_WORD T1													/*테이블_단어*/
 		 WHERE 1 = 1
 		   AND T1.WORDBOOK_SEQ = #{wordbookSeq}
+		   <if test='schBookmarkYn != null and schBookmarkYn != ""'>
+		   AND T1.BOOKMARK_YN = #{schBookmarkYn}
+		   </if>
 		 ORDER BY RAND()
 	</select>		
 	
