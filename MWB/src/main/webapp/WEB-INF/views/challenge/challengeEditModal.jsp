@@ -10,11 +10,10 @@
 **/
  %>
  
-<script src="<%=request.getContextPath()%>/resources/js/challenge\challengeEditModal.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/challenge/challengeEditModal.js"></script>
 
 <div id="challengeEditModal" class="modal">
-	<form id="wordbookEditForm" method="post" style="margin: 10px 0px;">
-		<input type="hidden" id="wordbookSeq" name="wordbookSeq">
+	<form id="challengeEditForm" method="post" style="margin: 10px 0px;">
 		<table class="papang-table">
 			<colgroup>
 				<col style="width: 5rem">
@@ -23,7 +22,7 @@
 			<tbody>
 				<tr class="modalText">
 					<td>이름: </td>
-					<td><input type="text" id="modalWordbookNm" class="tableInput" name="wordbookNm" title="이름" maxlength="300" onkeypress="if(event.keyCode == 13){saveWordbook()}" required="allM1"></td>
+					<td><input type="text" id="modalChalNm" class="tableInput" name="chalNm" title="이름" maxlength="300" onkeypress="if(event.keyCode == 13){saveChal()}" required="allM1"></td>
 				</tr>
 				<tr class="modalText">
 					<td style="vertical-align: baseline;">단어장: </td>
@@ -33,11 +32,11 @@
 				</tr>
 				<tr class="modalText">
 					<td>개수: </td>
-					<td><input type="text" id="modalWordbookNm" class="tableInput" name="wordbookNm" title="이름" maxlength="300" onkeypress="if(event.keyCode == 13){saveWordbook()}" required="allM1"></td>
+					<td><input type="text" id="modalChalCnt" class="tableInput" name="chalCnt" title="개수" value="100" maxlength="300" onkeypress="if(event.keyCode == 13){saveChal()}" required="allM1"></td>
 				</tr>
 				<tr class="tc">
 					<td colspan="2">
-						<button type="button" class="btn btn-dark optionBtn" onclick="saveWordbook()">저장</button>
+						<button type="button" class="btn btn-dark optionBtn" onclick="saveChal()">저장</button>
 						<button type="button" class="btn btn-dark optionBtn" onclick="modalClose()">취소</button>
 					</td>
 				</tr>

@@ -2,25 +2,116 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.challenge.ChallengeMapper">
 	
-	<!-- 단어 목록 조회 -->
-	<select id="selectChalWord" parameterType="map" resultType="camelCaseMap">
-		SELECT T1.WORDBOOK_SEQ                                              /*단어장일련번호*/
-			 , T1.WORD_ID													/*단어식별자*/
-		     , T1.WORD                                               		/*단어*/
-		     , T1.MEAN                                               		/*뜻*/
-		     , T1.BOOKMARK_YN                                               /*중요단어여부*/
-		     , T1.CHAL_CNT													/*챌린지횟수*/
+	<!-- 챌린지 단어 목록 조회 -->
+	<select id="selectChalWordList" parameterType="map" resultType="camelCaseMap">
+		SELECT T1.CHAL_SEQ                                                  /*챌린지일련번호*/
+			 , T1.WORDBOOK_SEQ                                              /*단어장일련번호*/
+		     , T1.WORD_ID                                                   /*단어식별자*/
+		     , T1.SUCCESS_YN                                                /*정답여부*/
 		     , T1.FST_REG_ID                                                /*최초등록자아이디*/
 		     , DATE_FORMAT(T1.FST_REG_DTTI, "%Y/%m/%d %H:%i") FST_REG_DTTI	/*최초등록일시*/
 		     , T1.LT_UPD_ID                                                 /*최종수정자아이디*/
 		     , DATE_FORMAT(T1.LT_UPD_DTTI, "%Y/%m/%d %H:%i") LT_UPD_DTTI	/*최종수정일시*/
-		     , ROW_NUMBER() OVER (ORDER BY T1.WORD) - 1	AS RNUM
-		  FROM TB_WORD T1													/*테이블_단어*/
+		     , T2.WORD														/*단어*/
+		     , T2.MEAN														/*뜻*/
+		  FROM TB_CHAL_WORD T1												/*테이블_챌린지_단어*/
+		     , TB_WORD T2													/*테이블_단어*/
 		 WHERE 1 = 1
-		   AND T1.WORDBOOK_SEQ = #{wordbookSeq}
-		   <if test='schBookmarkYn != null and schBookmarkYn != ""'>
-		   AND T1.BOOKMARK_YN = #{schBookmarkYn}
+		   AND T1.WORDBOOK_SEQ = T2.WORDBOOK_SEQ
+		   AND T1.WORD_ID = T2.WORD_ID
+		   <if test='chalSeq != null and chalSeq != ""'>
+		   AND T1.CHAL_SEQ = #{chalSeq}
+		   </if>		 
+		   <if test='successYn != null and successYn != ""'>
+		   AND T1.SUCCESS_YN = #{successYn}
 		   </if>
 		 ORDER BY RAND()
 	</select>		
+	
+	<!-- 챌린지 목록 조회 -->
+	<select id="selectchalList" parameterType="map" resultType="camelCaseMap">
+		SELECT T1.CHAL_SEQ                                                  /*챌린지일련번호*/
+			 , T1.CHAL_NM                                                   /*챌린지명*/
+		     , T1.USE_YN                                                    /*사용여부*/
+		     , T1.FST_REG_ID                                                /*최초등록자아이디*/
+		     , DATE_FORMAT(T1.FST_REG_DTTI, "%Y/%m/%d %H:%i") FST_REG_DTTI	/*최초등록일시*/
+		     , T1.LT_UPD_ID                                                 /*최종수정자아이디*/
+		     , DATE_FORMAT(T1.LT_UPD_DTTI, "%Y/%m/%d %H:%i") LT_UPD_DTTI	/*최종수정일시*/
+		  FROM TB_CHAL T1													/*테이블_단어*/
+		 WHERE 1 = 1
+		   <if test='schBookmarkYn != null and schBookmarkYn != ""'>
+		   AND T1.USE_YN = #{useYn}
+		   </if>
+		 ORDER BY CHAL_NM ASC
+	</select>		
+	
+	<!-- 챌린지 생성 -->
+	<insert id="insertChal" parameterType="map">
+		<selectKey resultType="integer" keyProperty="chalSeq" order="BEFORE">
+			SELECT nextval('CHAL_SEQ') FROM DUAL	/*chalSeq 값을 map에 반환*/
+		</selectKey>
+		INSERT 
+		  INTO TB_CHAL				/*테이블_챌린지*/
+		     ( CHAL_SEQ             /*챌린지일련번호*/
+		     , CHAL_NM              /*챌린지명*/
+		     , FST_REG_ID 			/*최초등록자ID*/
+		     , LT_UPD_ID 			/*최종수정자ID*/
+		     )
+		VALUES
+			 ( #{chalSeq}			/*챌린지일련번호*/
+			 , #{chalNm}			/*단어장명*/
+		     , #{loginInfo.userId} 	/*최초등록자ID*/
+		     , #{loginInfo.userId} 	/*최종수정자ID*/			 
+			 )    
+	</insert>	
+	
+	<!-- 챌린지 단어 생성 -->
+	<insert id="insertChalWord" parameterType="map">
+		INSERT 
+		  INTO TB_CHAL_WORD			/*테이블_챌린지_단어*/
+		     ( CHAL_SEQ             /*챌린지일련번호*/
+		     , WORDBOOK_SEQ         /*단어장일련번호*/
+		     , WORD_ID              /*단어식별자*/
+		     , FST_REG_ID 			/*최초등록자ID*/
+		     , LT_UPD_ID 			/*최종수정자ID*/
+		     )
+		SELECT #{chalSeq}           /*챌린지일련번호*/   
+			 , T1.WORDBOOK_SEQ      /*단어장일련번호*/   
+			 , T1.WORD_ID           /*단어식별자*/     
+		     , #{loginInfo.userId} 	/*최초등록자ID*/
+		     , #{loginInfo.userId} 	/*최종수정자ID*/
+		  FROM TB_WORD T1			/*단어*/
+		 WHERE T1.WORDBOOK_SEQ IN (${wordbookSeqArr}) 		
+		 ORDER BY CORRECT_CNT ASC
+		 LIMIT ${chalCnt}		 	 
+	</insert>		
+	
+	<!-- 정답/오답 입력 -->
+	<update id="updateCorrect" parameterType="map">
+		UPDATE TB_CHAL_WORD								/*테이블_챌린지_단어*/
+		   SET SUCCESS_YN		= #{isCorrectYn}		/*정답여부*/
+		   	 , LT_UPD_ID 		= #{loginInfo.userId}	/*최종수정자ID*/
+		     , LT_UPD_DTTI		= NOW() 				/*최종수정일시*/
+		 WHERE CHAL_SEQ 		= #{chalSeq}			/*챌린지일련번호*/
+		   AND WORDBOOK_SEQ 	= #{wordbookSeq}		/*단어장일련번호*/   
+		   AND WORD_ID			= #{wordId}				/*단어식별자*/ 
+	</update>
+	
+	<!-- 정/오답 횟수 수정 -->
+	<update id="updateCorrectCnt" parameterType="map">
+		UPDATE TB_WORD									/*테이블_단어*/
+		   SET 
+		<choose>
+			<when test='isCorrectYn != null and isCorrectYn == "Y"'>
+	 			CORRECT_CNT		= CORRECT_CNT + 1		/*정답횟수*/
+			</when>
+			<when test='isCorrectYn != null and isCorrectYn == "N"'>
+	 			INCORRECT_CNT	= INCORRECT_CNT + 1		/*오답횟수*/	
+			</when>
+		</choose>			   		
+		   	 , LT_UPD_ID 		= #{loginInfo.userId}	/*최종수정자ID*/
+		     , LT_UPD_DTTI		= NOW() 				/*최종수정일시*/
+		 WHERE WORDBOOK_SEQ 	= #{wordbookSeq}		/*단어장일련번호*/   
+		   AND WORD_ID			= #{wordId}				/*단어식별자*/ 
+	</update>	
 </mapper>

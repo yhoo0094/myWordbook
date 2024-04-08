@@ -86,27 +86,38 @@ function setClickAction(){
 }
 
 //저장
-function saveWordbook(){
+function saveChal(){
 	//필수입력 검증
 	if(!$util.checkRequired({group:["allM1"]})){return;};	
 	
-	let formData = new FormData($("#wordbookEditForm")[0]);
+	let formData = new FormData($("#challengeEditForm")[0]);
 	let formObject = {};
 	formData.forEach(function(value, key) {
 	    formObject[key] = value;
 	});
 	
-	$com.loadingStart();	
+	//선택된 단어장
+	let items = $('.wordbookItem.selected');
+	let wordbookSeqArr;
+	for(let item of items){
+		if($util.isEmpty(wordbookSeqArr)){
+			wordbookSeqArr = '\'' + $(item).data('seq') + '\''	
+		} else {
+			wordbookSeqArr += ',\'' + $(item).data('seq') + '\''
+		}
+	}
+	formObject['wordbookSeqArr'] = wordbookSeqArr;
 	
 	let url;
 	if($util.isEmpty($('#wordbookSeq').val())){
-		url = '/wordbook/insertWordbook.do'
+		url = '/challenge/insertChal.do'
 	} else {
-		url = '/wordbook/updateWordbook.do'
+		url = '/challenge/updateChal.do'
 	}
 	
+	$com.loadingStart();	
     $.ajax({
-        url: url,
+        url: '/challenge/insertChal.do',
         type: 'POST',
         data: formObject,
         dataType: 'json',

@@ -346,6 +346,14 @@ a:hover {
     font-size: 1.5rem;
     margin: 2px;
 }
+
+.curIdxBox{
+	position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 1.5rem;
+    color: darkgray;
+}
 /* challengeView 끝 */
 
 /* challengeEditModal 시작 */

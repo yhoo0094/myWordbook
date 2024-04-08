@@ -23,7 +23,8 @@
 		     , T1.WORD                                               		/*단어*/
 		     , T1.MEAN                                               		/*뜻*/
 		     , T1.BOOKMARK_YN                                               /*중요단어여부*/
-		     , T1.CHAL_CNT													/*챌린지횟수*/
+		     , T1.CORRECT_CNT												/*정답횟수*/
+		     , T1.INCORRECT_CNT												/*오답횟수*/
 		     , T1.FST_REG_ID                                                /*최초등록자아이디*/
 		     , DATE_FORMAT(T1.FST_REG_DTTI, "%Y/%m/%d %H:%i") FST_REG_DTTI	/*최초등록일시*/
 		     , T1.LT_UPD_ID                                                 /*최종수정자아이디*/
@@ -63,14 +64,12 @@
 		<selectKey resultType="integer" keyProperty="wordId" order="BEFORE">
 			SELECT IFNULL(MAX(WORD_ID), 0) + 1 FROM TB_WORD WHERE WORDBOOK_SEQ = #{wordbookSeq}
 		</selectKey>	
-	
 		INSERT 
 		  INTO TB_WORD				/*테이블_단어*/
 		     ( WORDBOOK_SEQ			/*단어장일련번호*/
 		     , WORD_ID				/*단어식별자*/
 		     , WORD 				/*단어*/
 		     , MEAN 				/*뜻*/
-		     , CHAL_CNT				/*챌린지횟수*/
 		     , FST_REG_ID 			/*최초등록자ID*/
 		     , LT_UPD_ID 			/*최종수정자ID*/
 		     )
@@ -79,7 +78,6 @@
 			 , #{wordId}			/*단어식별자*/
 			 , #{word}				/*단어*/
 			 , #{mean}				/*뜻*/
-			 , 0					/*챌린지횟수*/
 		     , #{loginInfo.userId} 	/*최초등록자ID*/
 		     , #{loginInfo.userId} 	/*최종수정자ID*/			 
 			 )    
