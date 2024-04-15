@@ -44,8 +44,9 @@
 	<div id="wordListDiv" class="page-body tl list-div"></div>
 </div>
 <div class="chal-button-div tr">
-	<button class="btn btn-primary chalOptionBtn" type="button" onClick="updateCorrect('Y')">정답</button>
-	<button class="btn btn-danger chalOptionBtn" type="button" onClick="updateCorrect('N')">오답</button>
+	<button class="btn btn-primary chalOptionBtn chal-button" type="button" onClick="updateCorrect('Y')">정답</button>
+	<button class="btn btn-danger chalOptionBtn chal-button" type="button" onClick="updateCorrect('N')">오답</button>
+	<div class="btn btn-secondary chalOptionBtn chal-button-blocker">맞춘 단어</div>
 </div>
 
 <div id="settingMenu" class="side-menu tl">

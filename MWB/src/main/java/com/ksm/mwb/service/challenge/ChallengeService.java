@@ -106,5 +106,27 @@ public class ChallengeService extends BaseService {
 		result.put(Constant.RESULT, Constant.RESULT_SUCCESS);
 		result.put(Constant.OUT_DATA, cnt);
 		return result;
+	}	
+	
+	/**
+	* @메소드명: deleteChal
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 15. 오후 7:38:08
+	* @설명: 챌린지 삭제
+	*/	
+	public Map<String, Object> deleteChal(StringBuilder logStr, Map<String, Object> inData) throws Exception
+	{
+		Map<String, Object> result = new HashMap<String, Object>();
+		int cnt = 0;
+		
+		cnt = sqlSession.delete("mapper.challenge.ChallengeMapper.deleteChal", inData);
+		if(cnt == 0) {
+			result.put(Constant.RESULT, Constant.RESULT_FAILURE);
+			result.put(Constant.OUT_RESULT_MSG, "데이터 삭제에 실패했습니다.");
+		}
+		
+		result.put(Constant.RESULT, Constant.RESULT_SUCCESS);
+		result.put(Constant.OUT_DATA, cnt);
+		return result;
 	}		
 }

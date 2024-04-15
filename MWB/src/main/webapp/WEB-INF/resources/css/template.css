@@ -354,6 +354,14 @@ a:hover {
     font-size: 1.5rem;
     color: darkgray;
 }
+
+.chal-button-blocker{
+	display:none;
+	background-color: #6c757d;
+	width: 100%;
+	text-align: center;
+}
+
 /* challengeView 끝 */
 
 /* challengeEditModal 시작 */

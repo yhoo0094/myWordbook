@@ -37,9 +37,9 @@
 		     , DATE_FORMAT(T1.FST_REG_DTTI, "%Y/%m/%d %H:%i") FST_REG_DTTI	/*최초등록일시*/
 		     , T1.LT_UPD_ID                                                 /*최종수정자아이디*/
 		     , DATE_FORMAT(T1.LT_UPD_DTTI, "%Y/%m/%d %H:%i") LT_UPD_DTTI	/*최종수정일시*/
-		  FROM TB_CHAL T1													/*테이블_단어*/
+		  FROM TB_CHAL T1													/*테이블_챌린지*/
 		 WHERE 1 = 1
-		   <if test='schBookmarkYn != null and schBookmarkYn != ""'>
+		   <if test='useYn != null and useYn != ""'>
 		   AND T1.USE_YN = #{useYn}
 		   </if>
 		 ORDER BY CHAL_NM ASC
@@ -114,4 +114,13 @@
 		 WHERE WORDBOOK_SEQ 	= #{wordbookSeq}		/*단어장일련번호*/   
 		   AND WORD_ID			= #{wordId}				/*단어식별자*/ 
 	</update>	
+	
+	<!-- 챌린지 삭제 -->
+	<delete id="deleteChal" parameterType="map">
+		UPDATE TB_CHAL									/*테이블_챌린지*/
+		   SET USE_YN = 'N'								/*사용여부*/
+		   	 , LT_UPD_ID 		= #{loginInfo.userId}	/*최종수정자ID*/
+		     , LT_UPD_DTTI		= NOW() 				/*최종수정일시*/		   
+		 WHERE CHAL_SEQ			= #{chalSeq}			/*챌린지일련번호*/
+	</delete>		
 </mapper>

@@ -14,11 +14,6 @@ $(()=>{
 	selectchalList();		//챌린지 목록 조회
 })	
 
-//설정창 토글
-function settingBtn(){
-
-}
-
 //챌린지 목록 조회
 function selectchalList(){
 	$com.loadingStart();
@@ -213,7 +208,13 @@ function setWord(){
 	$('#curIdx').text(curIdx + '/' + wordTotalCnt);
 	
 	//정답일 경우 정답/오답 버튼 비활성화
-	
+	if(wordList[wordIdx].successYn == 'Y'){
+		$('.chal-button-blocker').show();
+		$('.chal-button').hide();	
+	} else {
+		$('.chal-button-blocker').hide();
+		$('.chal-button').show();
+	}
 	
 	if($('#reverseYn').prop('checked')){
 		//뜻 먼저일 때
@@ -240,6 +241,7 @@ function updateCorrect(isCorrectYn){
         dataType: 'json',
         success: function (res, textStatus, jqXHR) {
 	        if (res.RESULT == Constant.RESULT_SUCCESS){
+				wordList[wordIdx].successYn = isCorrectYn;
 				$('#nextBtn').click();
 	        } else {
 				alert(res[Constant.OUT_RESULT_MSG]);
@@ -250,4 +252,32 @@ function updateCorrect(isCorrectYn){
 			$com.loadingEnd();
 		}
     });				
+}
+
+//챌린지 삭제
+function deleteChal(){
+	if(!confirm('정말로 삭제하시겠습니까?')){
+		return false;
+	}
+	
+	$com.loadingStart();
+    $.ajax({
+        url: '/challenge/deleteChal.do',
+        type: 'POST',
+        data: {chalSeq: $('#chalSeq').val()},
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+        dataType: 'json',
+        success: function (result) {
+            if (result.RESULT == Constant.RESULT_SUCCESS){
+                alert("삭제되었습니다.");
+                location.reload();
+            } else {
+				alert(result[Constant.OUT_RESULT_MSG])
+			};
+			$com.loadingEnd();
+        },
+        error: function(result){
+			$com.loadingEnd();
+		}
+    });			
 }
