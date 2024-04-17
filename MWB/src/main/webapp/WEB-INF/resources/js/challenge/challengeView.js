@@ -74,6 +74,7 @@ function selectChalWordList(){
 					setWord();
 					$('#prevBtn').show();
 					$('#nextBtn').show();
+					$('#chal-button-div').css('display','flex');
 					
 					//단어 목록 만들기
 					let htmlArr = [];
@@ -97,6 +98,7 @@ function selectChalWordList(){
 					$('#meanSpan').text('등록된 단어가 없습니다.');
 					$('#prevBtn').hide();
 					$('#nextBtn').hide();
+					$('#chal-button-div').hide();
 				}
 	        } else {
 				alert(res[Constant.OUT_RESULT_MSG]);

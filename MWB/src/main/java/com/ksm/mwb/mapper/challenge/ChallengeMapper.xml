@@ -86,6 +86,15 @@
 		 LIMIT ${chalCnt}		 	 
 	</insert>		
 	
+	<!-- 	챌린지 수정 -->
+	<update id="updateChal" parameterType="map">
+		UPDATE TB_CHAL									/*테이블_챌린지*/
+		   SET CHAL_NM			= #{chalNm}				/*챌린지명*/
+		   	 , LT_UPD_ID 		= #{loginInfo.userId}	/*최종수정자ID*/
+		     , LT_UPD_DTTI		= NOW() 				/*최종수정일시*/
+		 WHERE CHAL_SEQ 		= #{chalSeq}			/*챌린지일련번호*/
+	</update>	
+	
 	<!-- 정답/오답 입력 -->
 	<update id="updateCorrect" parameterType="map">
 		UPDATE TB_CHAL_WORD								/*테이블_챌린지_단어*/
@@ -116,11 +125,11 @@
 	</update>	
 	
 	<!-- 챌린지 삭제 -->
-	<delete id="deleteChal" parameterType="map">
+	<update id="deleteChal" parameterType="map">
 		UPDATE TB_CHAL									/*테이블_챌린지*/
 		   SET USE_YN = 'N'								/*사용여부*/
 		   	 , LT_UPD_ID 		= #{loginInfo.userId}	/*최종수정자ID*/
 		     , LT_UPD_DTTI		= NOW() 				/*최종수정일시*/		   
 		 WHERE CHAL_SEQ			= #{chalSeq}			/*챌린지일련번호*/
-	</delete>		
+	</update>		
 </mapper>

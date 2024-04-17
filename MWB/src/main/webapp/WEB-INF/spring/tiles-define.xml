@@ -15,7 +15,7 @@
 	
 	<!-- main layout -->
 	<definition name="layout-tiles" template="/WEB-INF/views/tiles/tiles-layout.jsp">
-		<put-attribute name="title" value="HelloPaPang!" />
+		<put-attribute name="title" value="My Wordbook!" />
 		<put-attribute name="left" value="/WEB-INF/views/tiles/leftTemplate.jsp" />
 		<put-attribute name="body" value="" />
 	</definition>

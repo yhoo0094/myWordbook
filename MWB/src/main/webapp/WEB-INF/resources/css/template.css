@@ -8,7 +8,6 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
 }
 /* 스타일 초기화 끝 */
 
@@ -22,8 +21,10 @@ body, html {
     width: 100%; /* 컨테이너 너비, 필요에 따라 조정 가능 */
     height: 100%; 
     margin: auto; /* 상위 요소 내에서 자동 마진을 통한 중앙 정렬 */
-	max-width: 60vh; 
-	max-height: 240vw; 
+	max-width: 60vh;
+/* 	min-width: 400px;  */
+	max-height: 240vw;
+/* 	min-height: 70vh;  */
 	overflow: auto;
 	white-space: nowrap;   
 	position: relative;
@@ -338,7 +339,7 @@ a:hover {
 /* challengeView 시작 */
 .chal-button-div{
 	padding: 10px;
-	display: flex;
+	display: none;
 }
 
 .chalOptionBtn{
@@ -373,22 +374,26 @@ a:hover {
 }
 /* challengeEditModal 끝 */
 
-/* /* 작은 화면 (모바일)을 위한 스타일 시작 */ */
-/* @media (min-width: 600px) { */
-/*     body, html { */
-/*     	font-size: 40px; 기본 폰트 크기를 20px로 설정 */
-/*     } */
+/* 반응형 스타일 시작 */
+/* 화면이 ?px 이상일 때 */     
+/* @media screen and (min-width: 600px){ */
+/*     html { */
+/*     	font-size: 15px;  */
+/*     }	 */
+/* }  */
+
+/*화면의 너비가 높이의 n% 이하일 때 */
+/* @media screen and (max-aspect-ratio: 0.6) */
+/* { */
+/*     html { */
+/*     	font-size: 15px;  */
+/*     }	 */
 /* } */
 
-/* @media (max-aspect-ratio: 16/10) { */
-/* 	.wrap { */
-/* 		max-width: 62.5vh; 100vh * 10/16 */
-/* 		overflow: auto; */
-/* 		white-space: nowrap; */
-/* 	} */
-	
-/* 	body, html { */
-/*     	font-size: 20px; 기본 폰트 크기를 20px로 설정 */
-/*     } */
-/* } */
-/* /* 작은 화면 (모바일)을 위한 스타일 끝 */ */
+/* 화면의 너비가 높이의 n% 이상일 경우에 적용할 스타일 */
+@media screen and (min-aspect-ratio: 0.6) {
+	.wrap {
+		border: 2px solid black;
+	}
+}
+/* 반응형 스타일 끝 */

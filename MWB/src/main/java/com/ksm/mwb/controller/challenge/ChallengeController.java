@@ -68,7 +68,25 @@ public class ChallengeController extends BaseController {
 		response.getWriter().print(json);	//결과 json형태로 담아서 보내기
 		response.setContentType("application/x-json; charset=UTF-8");
 	}		
+	
+	/**
+	* @메소드명: updateChal
+	* @작성자: KimSangMin
+	* @생성일: 2024. 4. 16. 오후 4:00:21
+	* @설명: 챌린지 수정
+	 */
+	@RequestMapping("/updateChal.do")
+	public void updateChal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, Object> inData = RequestUtil.getParameterMap(request);
+		inData.put("loginInfo", RequestUtil.getLoginInfo(request));
+		Map<String, Object> outData = challengeService.updateChal((StringBuilder)request.getAttribute("IN_LOG_STR"), inData);
 
+		Gson gson = new Gson();
+		String json = gson.toJson(outData);
+		response.getWriter().print(json);	//결과 json형태로 담아서 보내기
+		response.setContentType("application/x-json; charset=UTF-8");
+	}
+	
 	/**
 	* @메소드명: updateCorrect
 	* @작성자: KimSangMin

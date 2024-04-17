@@ -20,17 +20,17 @@
 				<col style="width: *">
 			</colgroup>
 			<tbody>
-				<tr class="modalText">
+				<tr id="modalChalNmTr" class="modalText">
 					<td>이름: </td>
 					<td><input type="text" id="modalChalNm" class="tableInput" name="chalNm" title="이름" maxlength="300" onkeypress="if(event.keyCode == 13){saveChal()}" required="allM1"></td>
 				</tr>
-				<tr class="modalText">
+				<tr id="modalWordbookListTr" class="modalText">
 					<td style="vertical-align: baseline;">단어장: </td>
 					<td>
 						<div id="modalWordbookList" class="border-box"></div>
 					</td>
 				</tr>
-				<tr class="modalText">
+				<tr id="modalChalCntTr" class="modalText">
 					<td>개수: </td>
 					<td><input type="text" id="modalChalCnt" class="tableInput" name="chalCnt" title="개수" value="100" maxlength="300" onkeypress="if(event.keyCode == 13){saveChal()}" required="allM1"></td>
 				</tr>

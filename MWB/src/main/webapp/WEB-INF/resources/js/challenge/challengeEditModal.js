@@ -5,16 +5,21 @@
 * @설명: 단어장
 */
 
+let mode;
+
 //단어장 관리 모달 열기
-function chalEditModalOpen(mode){
-	modalReset();	//모달 내용 초기화
+function chalEditModalOpen(inputMode){
+	modalReset();		//모달 내용 초기화
 	
-	//C:등록, U:수정
+	mode = inputMode;	//C:등록, U:수정
 	if(mode == 'C'){
 		selectWordbookList();	//단어장 목록 조회	
+		$('#modalWordbookListTr').show();
+		$('#modalChalCntTr').show();
 	} else if(mode == 'U') {
-//		$('#modalWordbookNm').val(wordbookNm);
-//		$('#wordbookSeq').val(wordbookSeq);
+		$('#modalWordbookListTr').hide();
+		$('#modalChalCntTr').hide();
+		$('#modalChalNm').val($('#chalSeq option:selected').text());
 	}
 	
 	$com.loadingEnd();
@@ -96,28 +101,30 @@ function saveChal(){
 	    formObject[key] = value;
 	});
 	
-	//선택된 단어장
-	let items = $('.wordbookItem.selected');
-	let wordbookSeqArr;
-	for(let item of items){
-		if($util.isEmpty(wordbookSeqArr)){
-			wordbookSeqArr = '\'' + $(item).data('seq') + '\''	
-		} else {
-			wordbookSeqArr += ',\'' + $(item).data('seq') + '\''
-		}
-	}
-	formObject['wordbookSeqArr'] = wordbookSeqArr;
-	
 	let url;
-	if($util.isEmpty($('#wordbookSeq').val())){
+	if(mode == 'C'){
 		url = '/challenge/insertChal.do'
+		
+		//선택된 단어장
+		let items = $('.wordbookItem.selected');
+		let wordbookSeqArr;
+		for(let item of items){
+			if($util.isEmpty(wordbookSeqArr)){
+				wordbookSeqArr = '\'' + $(item).data('seq') + '\''	
+			} else {
+				wordbookSeqArr += ',\'' + $(item).data('seq') + '\''
+			}
+		}
+		formObject['wordbookSeqArr'] = wordbookSeqArr;		
 	} else {
 		url = '/challenge/updateChal.do'
+		
+		formObject['chalSeq'] = $('#chalSeq option:selected').val();		
 	}
 	
 	$com.loadingStart();	
     $.ajax({
-        url: '/challenge/insertChal.do',
+        url: url,
         type: 'POST',
         data: formObject,
         dataType: 'json',
