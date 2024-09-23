@@ -18,7 +18,7 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/font.css"> <!-- 폰트적용 -->
-    <link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/images/title-logo/superhero.png"> <!-- title 아이콘 변경 -->	
+    <link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/images/title-logo/books.png"> <!-- title 아이콘 변경 -->	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />	<!-- jQuery Modal -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/rr-1.3.3/datatables.min.css"/><!-- datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"><!-- datatable -->

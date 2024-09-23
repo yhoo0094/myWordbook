@@ -23,11 +23,15 @@
 			<tbody>
 				<tr class="modalText">
 					<td>단어: </td>
-					<td><input type="text" id="modalWord" name="word" title="단어" maxlength="300" onkeypress="if(event.keyCode == 13){saveWordbook()}" required="allM1" style="margin: 12px; width: 100%;"></td>
+					<td>
+						<textarea rows="2" cols="" id="modalWord" name="word" title="단어" maxlength="300" required="allM1" style="margin: 12px; width: 100%;"></textarea>
+					</td>
 				</tr>
 				<tr class="modalText">
 					<td>뜻: </td>
-					<td><input type="text" id="modalMean" name="mean" title="뜻" maxlength="300" onkeypress="if(event.keyCode == 13){saveWordbook()}" required="allM1" style="margin: 12px; width: 100%;"></td>
+					<td>
+						<textarea rows="2" cols="" id="modalMean" name="mean" title="뜻" maxlength="300" required="allM1" style="margin: 12px; width: 100%;"></textarea>
+					</td>
 				</tr>
 				<tr class="tc">
 					<td colspan="2">

@@ -34,11 +34,11 @@
 <div class="page-body">
 	<div id="wordDiv" class="body-div align-items-center">
 		<img src="${pageContext.request.contextPath}\resources\images\etc\prev-button.png" id="prevBtn" class="prev-button"/>
-		<span id="wordSpan" class="word-span"></span>
+		<span id="wordSpan" class="word-span textarea-output"></span>
 		<img src="${pageContext.request.contextPath}\resources\images\etc\next-button.png" id="nextBtn" class="next-button"/>
 	</div>
 	<div id="meanDiv" class="body-div align-items-center">
-		<span id="meanSpan" class="mean-span"></span>
+		<span id="meanSpan" class="mean-span textarea-output"></span>
 		<img src="${pageContext.request.contextPath}\resources\images\etc\question-mark.png" id="meanBlockImg" class=""/>
 	</div>
 	<div id="wordListDiv" class="page-body tl list-div"></div>

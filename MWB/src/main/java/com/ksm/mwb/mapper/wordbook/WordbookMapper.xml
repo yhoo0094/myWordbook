@@ -62,7 +62,7 @@
 	<!-- 단어 등록 -->
 	<insert id="insertWord" parameterType="map">
 		<selectKey resultType="integer" keyProperty="wordId" order="BEFORE">
-			SELECT IFNULL(MAX(WORD_ID), 0) + 1 FROM TB_WORD WHERE WORDBOOK_SEQ = #{wordbookSeq}
+			SELECT IFNULL(MAX(CONVERT(WORD_ID, SIGNED)), 0) + 1 FROM TB_WORD WHERE WORDBOOK_SEQ = #{wordbookSeq}
 		</selectKey>	
 		INSERT 
 		  INTO TB_WORD				/*테이블_단어*/
